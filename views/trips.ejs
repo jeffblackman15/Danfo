@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danfo - Trips</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles2.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+<body>
+    <div class="container py-4">
+        <div class="text-center mb-4">
+            <h2>Your Trips</h2>
+        </div>
+
+        <div class="trip-list">
+            <% if (trips.length > 0) { %>
+                <% trips.forEach(function(trip) { %>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Trip from <%= trip.origin %> to <%= trip.destination %></h5>
+                            <p class="card-text">Date: <%= trip.date %></p>
+                            <p class="card-text">Price: $<%= trip.price %></p>
+                            <p class="card-text">Mode: <%= trip.mode %> (e.g., Bike, Bus, Keke)</p>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <div class="alert alert-info text-center">
+                    <strong>No trips found.</strong>
+                </div>
+            <% } %>
+        </div>
+    </div>
+
+    <nav class="navbar fixed-bottom navbar-light" style="background-color: cadetblue; display: flex; justify-content: space-evenly;">
+        <div style="display: flex; flex-direction: column; align-items: center; color: white;">
+            <a href="/dashboard" class="navbar-item link-light"><i class="fa fa-home" aria-hidden="true"></i></a>Home
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; color: white;">
+            <a href="/trips" class="navbar-item link-light"><i class="fa fa-truck" aria-hidden="true"></i></a>Trips
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; color: white;">
+            <a href="/payment" class="navbar-item link-light"><i class="fa fa-credit-card" aria-hidden="true"></i></a>Payment
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; color: white;">
+            <a href="/profile" class="navbar-item link-light"><i class="fa fa-user" aria-hidden="true"></i></a>Profile
+        </div>
+    </nav>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

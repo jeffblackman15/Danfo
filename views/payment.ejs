@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danfo - Wallet</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles2.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+<body>
+    <div class="container py-4">
+        <div class="text-center mb-4">
+            <h2>Wallet</h2>
+            <p>Manage your funds for trips here.</p>
+        </div>
+
+        <!-- Wallet Balance -->
+        <div class="card mb-4">
+            <div class="card-body text-center">
+                <h4>Current Balance</h4>
+                <h2>$<%= balance %></h2>
+            </div>
+        </div>
+
+        <!-- Deposit and Withdraw Buttons -->
+        <div class="d-flex justify-content-around mb-4">
+            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#depositModal">Deposit</button>
+            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#withdrawModal">Withdraw</button>
+        </div>
+
+        <!-- Payment History -->
+        <div class="payment-history">
+            <h4>Previous Transactions</h4>
+            <% if (transactions.length > 0) { %>
+                <ul class="list-group">
+                    <% transactions.forEach(function(transaction) { %>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span><%= transaction.type %> - <%= transaction.date %></span>
+                            <span><%= transaction.type === 'Deposit' ? '+' : '-' %>$<%= transaction.amount %></span>
+                        </li>
+                    <% }) %>
+                </ul>
+            <% } else { %>
+                <div class="alert alert-info text-center">
+                    <strong>No transactions found.</strong>
+                </div>
+            <% } %>
+        </div>
+    </div>
+
+    <!-- Deposit Modal -->
+    <div class="modal fade" id="depositModal" tabindex="-1" aria-labelledby="depositModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="depositModalLabel">Deposit Money</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/deposit" method="POST">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="depositAmount" class="form-label">Amount</label>
+                            <input type="number" class="form-control" id="depositAmount" name="amount" min="1" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Deposit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Withdraw Modal -->
+    <div class="modal fade" id="withdrawModal" tabindex="-1" aria-labelledby="withdrawModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="withdrawModalLabel">Withdraw Money</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/withdraw" method="POST">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="withdrawAmount" class="form-label">Amount</label>
+                            <input type="number" class="form-control" id="withdrawAmount" name="amount" min="1" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Withdraw</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar fixed-bottom navbar-light" style="background-color: cadetblue; display: flex; justify-content: space-evenly;">
+        <div style="display: flex; flex-direction: column; align-items: center; color: white;">
+            <a href="/dashboard" class="navbar-item link-light"><i class="fa fa-home" aria-hidden="true"></i></a>Home
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; color: white;">
+            <a href="/trips" class="navbar-item link-light"><i class="fa fa-truck" aria-hidden="true"></i></a>Trips
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; color: white;">
+            <a href="/payment" class="navbar-item link-light"><i class="fa fa-credit-card" aria-hidden="true"></i></a>Payment
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; color: white;">
+            <a href="/profile" class="navbar-item link-light"><i class="fa fa-user" aria-hidden="true"></i></a>Profile
+        </div>
+    </nav>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
